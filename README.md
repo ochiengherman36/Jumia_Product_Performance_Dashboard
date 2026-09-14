@@ -4,7 +4,7 @@
 
 Cleaning data and building dashboards in Excel is not just a classroom exercise; it is one of the most practical skills an analyst can have, since most business data still lives and gets reported in spreadsheets (Niklas, 2026). In this article, I take you through a real business problem: Jumia sellers need to understand how price, discounts, and customer reviews relate to product performance. I walk through cleaning a messy scraped dataset, writing formulas to enrich it, building PivotTables, and putting together an interactive dashboard that answers five specific business questions. By the end, you will know how to turn raw, inconsistent data into a dashboard that management can actually use.
 
-## The Dataset and the Problem
+## 1. The Dataset and the Problem
 
 The dataset used for this project contains 115 Jumia product listings, scraped directly from the platform. It includes six columns: Product, Current price, old price, Discount, Review, and Rating, covering a mix of household, electronics, and personal care items. As shown in Figure 1, the data arrives in a raw, inconsistent state, exactly how real business data tends to look before anyone has touched it.
 
@@ -22,12 +22,13 @@ Before doing any cleaning, I went through the dataset and documented every quali
 
 ![raw_dataset.png](/screenshots/raw_dataset.png)
 
-## Cleaning the Data
+## 2. Cleaning the Data
+
 Cleaning began with the Product column, applying `=PROPER(TRIM(A2))` to fix inconsistent spacing and capitalization, followed by Find and Replace to correct acronyms like USB and DIY that got wrongly lowercased. Prices were stripped of currency symbols and commas, review counts had their negative signs removed, and the one price range was resolved to a single value. Ratings were converted from text like "4.5 out of 5" into plain decimals using `=IFERROR(VALUE(LEFT(F2,FIND(" ",F2)-1)),"")`. Figure 2 shows the cleaned dataset.
 
 ![cleaned_dataset1.png](/screenshots/cleaned_dataset1.png)
 
-## Enrichment: Turning Raw Numbers into Categories
+## 3. Enrichment: Turning Raw Numbers into Categories
 A rating of 4.5 or a discount of 42 percent doesn't mean much to a PivotTable on its own, since numbers like that vary slightly and are hard to group. To make the data easier to summarize, I added three enrichment columns: Rating Category, Discount Category, and Discount Amount, as shown in Figure 3. These take the raw numbers and sort them into simple buckets like "Excellent" or "High Discount," which is what actually makes counting, comparing, and charting possible later in the PivotTables and dashboard.
 
 `=IF([@Rating]="","Missing",IF([@Rating]<3,"Poor",IF([@Rating]<=4.5,"Average","Excellent")))`
@@ -38,15 +39,11 @@ A rating of 4.5 or a discount of 42 percent doesn't mean much to a PivotTable on
 
 ![cleaned_dataset2.png](/screenshots/cleaned_dataset2.png)
  
-## Building the Analysis Layer
+## 4. Building the Analysis Layer
+
 With the data cleaned and categorized, the next step was turning it into actual answers. I built a separate Analysis sheet to hold three things: a set of key performance indicators, correlation checks between the main variables, and ranked Top 10 tables for rating, reviews, and discount. Figure 4 shows the KPI section, along with the correlations and the Top 10 by Rating table, providing a quick snapshot of the whole dataset: 115 products, an average price of about KSh 1,173, an average discount of 37 percent, an average rating of 3.9, and 723 total reviews.
 
 ![analysis1.png](/screenshots/analysis1.png)
- 
-The correlations, also visible in Figure 4, are what actually answer three of the five business questions:
- 
-## Building the Analysis Layer
-With the data cleaned and categorized, the next step was turning it into actual answers. I built a separate Analysis sheet to hold three things: a set of key performance indicators, correlation checks between the main variables, and ranked Top 10 tables for rating, reviews, and discount. Figure 4 shows the KPI section, along with the correlations and the Top 10 by Rating table, providing a quick snapshot of the whole dataset: 115 products, an average price of about KSh 1,173, an average discount of 37 percent, an average rating of 3.9, and 723 total reviews.
  
 The correlations, also visible in Figure 4, are what actually answer three of the five business questions:
 
@@ -63,19 +60,21 @@ Building the Top 10 tables uncovered a bug worth mentioning on its own. Several 
 
 ![analysis2.png](/screenshots/analysis2.png)
 
-## PivotTables: Summarizing for the Dashboard
+## 5. PivotTables: Summarizing for the Dashboard
+
 To turn the analysis into something chartable, I built six PivotTables, shown together in Figure 6. Discount Mix and Rating Mix count how many products fall into each category. Engagement by Discount shows average reviews per discount tier. Top Products by Rating, Reviews, and Discount rank the ten best performers in each area. The Discount vs Rating Cross-tab combines both categories, revealing that 22 products have a high discount and only an average or poor rating.
 
 ![pivot_tables.png](/screenshots/pivot_tables.png)
  
-## Building the Dashboard
+## 6. Building the Dashboard
+
 Everything built so far comes together in one sheet, shown in Figures 7 and 8. It opens with six KPI cards, followed by three scatter charts, three bar charts ranking top products, and two doughnut charts showing category mixes. Slicers for Discount and Rating Category sit near the top, connected to every relevant PivotChart at once, so clicking one button updates several charts together instead of digging through each pivot separately. That connection is what actually makes this a dashboard rather than just a page of static charts.
 
 ![dashboard1.png](/screenshots/dashboard1.png)
 
 ![dashboard1.png](/screenshots/dashboard1.png)
 
-## What Broke and How I Fixed It
+## 7. What Broke and How I Fixed It
 
 - Text-formatted cells break formulas: Typing `=PROPER(TRIM(A2))` into a cell formatted as Text caused Excel to store the formula as plain text instead of calculating it. I fixed this by changing the cell format to General and running Text to Columns to force Excel to recalculate.
   
@@ -85,7 +84,8 @@ Everything built so far comes together in one sheet, shown in Figures 7 and 8. I
   
 - SPILL error with FILTER: Dynamic array formulas like FILTER cannot spill their results inside an Excel Table. Once I moved the formula into a plain range outside the table, it worked correctly and populated as expected.
 
-## Key Findings
+## 8. Key Findings
+
 Figure 9 shows the final Key Insights panel from the dashboard, summarizing the answer to each business question:
 
 - Larger discounts do not bring more reviews (correlation -0.14)
@@ -101,6 +101,7 @@ Figure 9 shows the final Key Insights panel from the dashboard, summarizing the 
 ![key_insights.png](/screenshots/key_insights.png)
  
 ## Conclusion
+
 Working through this project took a messy, scraped dataset and turned it into a finished, interactive dashboard. Here is a summary of what was covered:
 
 - Auditing and cleaning raw data, fixing text formatting, broken acronyms, negative values, and text stored where numbers belonged
