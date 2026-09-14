@@ -115,4 +115,7 @@ Working through this project took a messy, scraped dataset and turned it into a 
 - Turning correlations and rankings into five clear, verdict-led business insights
 
 ## Reference
+
+[Excel_jumia_dataset.xlsx](Excel_jumia_dataset.xlsx)
+
 Niklas. (2026). Why excel is still the backbone of business reporting in the AI era. Learnesy. https://learnesy.com/excel-is-still-the-backbone-of-business-reporting/
