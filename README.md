@@ -1,22 +1,29 @@
 # Building an Interactive Excel Dashboard for E-commerce Product Analysis: A Case Study of Jumia Products
 
 ## Introduction
+
 Cleaning data and building dashboards in Excel is not just a classroom exercise; it is one of the most practical skills an analyst can have, since most business data still lives and gets reported in spreadsheets (Niklas, 2026). In this article, I take you through a real business problem: Jumia sellers need to understand how price, discounts, and customer reviews relate to product performance. I walk through cleaning a messy scraped dataset, writing formulas to enrich it, building PivotTables, and putting together an interactive dashboard that answers five specific business questions. By the end, you will know how to turn raw, inconsistent data into a dashboard that management can actually use.
 
 ## The Dataset and the Problem
+
 The dataset used for this project contains 115 Jumia product listings, scraped directly from the platform. It includes six columns: Product, Current price, old price, Discount, Review, and Rating, covering a mix of household, electronics, and personal care items. As shown in Figure 1, the data arrives in a raw, inconsistent state, exactly how real business data tends to look before anyone has touched it.
 
 Before doing any cleaning, I went through the dataset and documented every quality issue I could find, rather than fixing things on the fly. Here is what stood out:
 
-•	Misspelled header: the Rating column header was actually written as "Ratingd" instead of "Rating."
-•	Negative review counts: values in the Review column appeared as negative numbers, for example, -2 or -14, even though a review count can never be negative.
-•	Price stored as a range: one row listed its price as "1,620 - 1,980" instead of a single number, breaking the pattern every other row followed.
-•	Rating stored as text: ratings were written as full phrases, such as "4.5 out of 5," rather than plain decimal numbers, making them unusable for calculations.
-•	Missing values: roughly half the rows had no Review or Rating values, leaving visible blanks throughout the dataset.
+- Misspelled header: the Rating column header was actually written as "Ratingd" instead of "Rating."
+
+- Negative review counts: values in the Review column appeared as negative numbers, for example, -2 or -14, even though a review count can never be negative.
+
+- Price stored as a range: one row listed its price as "1,620 - 1,980" instead of a single number, breaking the pattern every other row followed.
+
+- Rating stored as text: ratings were written as full phrases, such as "4.5 out of 5," rather than plain decimal numbers, making them unusable for calculations.
+
+- Missing values: roughly half the rows had no Review or Rating values, leaving visible blanks throughout the dataset.
  
 ## Cleaning the Data
-Cleaning began with the Product column, applying =PROPER(TRIM(A2)) to fix inconsistent spacing and capitalization, followed by Find and Replace to correct acronyms like USB and DIY that got wrongly lowercased. Prices were stripped of currency symbols and commas, review counts had their negative signs removed, and the one price range was resolved to a single value. Ratings were converted from text like "4.5 out of 5" into plain decimals using =IFERROR(VALUE(LEFT(F2,FIND(" ",F2)-1)),""). Figure 2 shows the cleaned dataset.
- 
+Cleaning began with the Product column, applying `=PROPER(TRIM(A2))` to fix inconsistent spacing and capitalization, followed by Find and Replace to correct acronyms like USB and DIY that got wrongly lowercased. Prices were stripped of currency symbols and commas, review counts had their negative signs removed, and the one price range was resolved to a single value. Ratings were converted from text like "4.5 out of 5" into plain decimals using `=IFERROR(VALUE(LEFT(F2,FIND(" ",F2)-1)),"")`. Figure 2 shows the cleaned dataset.
+
+![raw_dataset.png](/screenshots/raw_dataset.png)
 
 ## Enrichment: Turning Raw Numbers into Categories
 A rating of 4.5 or a discount of 42 percent doesn't mean much to a PivotTable on its own, since numbers like that vary slightly and are hard to group. To make the data easier to summarize, I added three enrichment columns: Rating Category, Discount Category, and Discount Amount, as shown in Figure 3. These take the raw numbers and sort them into simple buckets like "Excellent" or "High Discount," which is what actually makes counting, comparing, and charting possible later in the PivotTables and dashboard.
