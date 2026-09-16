@@ -72,7 +72,7 @@ Everything built so far comes together in one sheet, shown in Figures 7 and 8. I
 
 ![dashboard1.png](/screenshots/dashboard1.png)
 
-![dashboard1.png](/screenshots/dashboard1.png)
+![dashboard1.png](/screenshots/dashboard2.png)
 
 ## 7. What Broke and How I Fixed It
 
