@@ -5,7 +5,6 @@
 Cleaning data and building dashboards in Excel is not just a classroom exercise; it is one of the most practical skills an analyst can have, since most business data still lives and gets reported in spreadsheets (Niklas, 2026). In this article, I take you through a real business problem: Jumia sellers need to understand how price, discounts, and customer reviews relate to product performance. I walk through cleaning a messy scraped dataset, writing formulas to enrich it, building PivotTables, and putting together an interactive dashboard that answers five specific business questions. By the end, you will know how to turn raw, inconsistent data into a dashboard that management can actually use.
 
 ## 1. The Dataset and the Problem
-
 The dataset used for this project contains 115 Jumia product listings, scraped directly from the platform. It includes six columns: Product, Current price, old price, Discount, Review, and Rating, covering a mix of household, electronics, and personal care items. As shown in Figure 1, the data arrives in a raw, inconsistent state, exactly how real business data tends to look before anyone has touched it.
 
 Before doing any cleaning, I went through the dataset and documented every quality issue I could find, rather than fixing things on the fly. Here is what stood out:
@@ -72,7 +71,7 @@ Everything built so far comes together in one sheet, shown in Figures 7 and 8. I
 
 ![dashboard1.png](/screenshots/dashboard1.png)
 
-![dashboard1.png](/screenshots/dashboard2.png)
+![dashboard2.png](/screenshots/dashboard2.png)
 
 ## 7. What Broke and How I Fixed It
 
@@ -114,8 +113,10 @@ Working through this project took a messy, scraped dataset and turned it into a 
 
 - Turning correlations and rankings into five clear, verdict-led business insights
 
-## References
+## Project Files
 
-[Excel_jumia_dataset.xlsx](Excel_jumia_dataset.xlsx)
+[Excel Workbook](https://github.com/ochiengherman36/Jumia_Product_Performance_Dashboard/blob/main/Excel_jumia_dataset.xlsx)
+
+## Reference
 
 Niklas. (2026). Why excel is still the backbone of business reporting in the AI era. Learnesy. https://learnesy.com/excel-is-still-the-backbone-of-business-reporting/
