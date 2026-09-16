@@ -114,7 +114,7 @@ Working through this project took a messy, scraped dataset and turned it into a 
 
 - Turning correlations and rankings into five clear, verdict-led business insights
 
-## Reference
+## References
 
 [Excel_jumia_dataset.xlsx](Excel_jumia_dataset.xlsx)
 
